@@ -1,30 +1,38 @@
+import json
+import sys
 from psychopy import visual, core, event
-
 from dataset import Dataset
 
-mainWindow = visual.Window([800, 600], monitor="testMonitor", units="deg")
-fixation = visual.TextStim(mainWindow, text="+", alignHoriz="center", alignVert="center")
-word = visual.TextStim(mainWindow, alignHoriz="center", alignVert="center")
+CONFIG_PATH = "./configurations/{}.json".format(sys.argv[1])
+with open(CONFIG_PATH, "r") as f:
+    CONF = json.load(f)
 
-dataset = Dataset("american-english")
+dataset = Dataset(CONF["dataset_name"])
+window = visual.Window(CONF["screen_size"], monitor="testMonitor", units="deg")
+fixation = visual.TextStim(window,text="+", alignHoriz="center", alignVert="center")
+word = visual.TextStim(window, alignHoriz="center", alignVert="center")
 
-KEYS = {
-    "before": ["1", "left", "-"],
-    "after": ["2", "right", "+"]
-}
 
+fixation.draw()
+window.flip()
+
+# gate
+while CONF["keys"]["start"] not in event.waitKeys():
+    pass
+
+core.wait(CONF["timing"]["first_fixation"])
 
 while not dataset.is_finished():
     word.setText(dataset.middle_word())
     word.draw()
-    mainWindow.flip()
+    window.flip()
 
     allKeys=event.waitKeys()
     for thisKey in allKeys:
-        if thisKey in KEYS["before"]:
+        if thisKey in CONF["keys"]["before"]:
             dataset.split_dataset("before")
             break
-        elif thisKey in KEYS["after"]:
+        elif thisKey in CONF["keys"]["after"]:
             dataset.split_dataset("after")
             break
 

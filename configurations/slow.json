@@ -1,0 +1,12 @@
+{
+  "dataset_name": "american-english",
+  "keys": {
+      "before": ["1", "left", "-"],
+      "after": ["2", "right", "+"],
+      "start": "5"
+  },
+  "screen_size": [800, 600],
+  "timing": {
+    "first_fixation": 30
+  }
+}
