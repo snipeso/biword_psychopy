@@ -1,20 +1,31 @@
 {
   "participant": "John-Doe",
-  "dataset_name": "american-english",
+  "dataset": {
+    "name": "american-english",
+    "to_clean": true
+  },
   "keys": {
     "before": ["1", "left", "minus"],
     "after": ["2", "right", "plus"],
     "start": "5"
   },
-  "screen_size": [800, 600],
-  "tasks": {
-    "before": "TALK",
-    "after": "DRAW"
+  "screen": {
+    "size": [800, 600],
+    "color": "black",
+    "monitor": "testMonitor"
   },
-  "colors": {
-    "before": "green",
-    "after": "red",
-    "planning": "white"
+  "tasks": {
+    "instructions": {
+      "before": "TALK",
+      "after": "DRAW"
+    },
+    "colors": {
+      "before": "green",
+      "after": "red",
+      "planning": "white"
+    },
+    "distance": 0.58,
+    "height": 0.07
   },
   "timing": {
     "first_fixation": 1,
