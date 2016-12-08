@@ -7,7 +7,7 @@ from dataset import Dataset
 from utils import append_data
 
 CONF_NAME = sys.argv[1]
-CONF_PATH = os.path.join("configurations", "{}.json".format(CONF_NAME)) 
+CONF_PATH = os.path.join("configurations", "{}.json".format(CONF_NAME))
 with open(CONF_PATH, "r") as f:
     CONF = json.load(f)
 
@@ -71,12 +71,14 @@ while not dataset.is_finished():
 
 
     # TODO: add logic to ignore unwanted keys
-    allKeys=event.waitKeys()
-    for thisKey in allKeys:
-        if thisKey in CONF["keys"]["before"]:
-            direction = "before"
-        elif thisKey in CONF["keys"]["after"]:
-            direction = "after"
+    direction = None
+    while not direction:
+        allKeys=event.waitKeys()
+        for thisKey in allKeys:
+            if thisKey in CONF["keys"]["before"]:
+                direction = "before"
+            elif thisKey in CONF["keys"]["after"]:
+                direction = "after"
 
     d_time_answer = clock.getTime()
 
