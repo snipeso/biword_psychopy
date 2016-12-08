@@ -13,11 +13,12 @@
   "colors": {
     "before": "green",
     "after": "red",
-    "thinking": "white"
+    "planning": "white"
   },
   "timing": {
     "first_fixation": 1,
-    "thinking": 1,
-    "resting": 2
+    "planning": 1,
+    "thinking": 2,
+    "resting": 3
   }
 }
