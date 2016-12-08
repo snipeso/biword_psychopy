@@ -2,8 +2,8 @@
   "participant": "John-Doe",
   "dataset_name": "american-english",
   "keys": {
-    "before": ["1", "left", "-"],
-    "after": ["2", "right", "+"],
+    "before": ["1", "left", "minus"],
+    "after": ["2", "right", "plus"],
     "start": "5"
   },
   "screen_size": [800, 600],
