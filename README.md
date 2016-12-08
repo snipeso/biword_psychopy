@@ -2,6 +2,4 @@
 
 ## Todo
 
-* change background to black
-* find better colors
-* make instructions smaller
+* represent chosen word at the end
