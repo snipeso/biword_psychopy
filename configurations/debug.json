@@ -1,12 +1,23 @@
 {
   "dataset_name": "american-english",
   "keys": {
-      "before": ["1", "left", "-"],
-      "after": ["2", "right", "+"],
-      "start": "5"
+    "before": ["1", "left", "-"],
+    "after": ["2", "right", "+"],
+    "start": "5"
   },
   "screen_size": [800, 600],
+  "tasks": {
+    "before": "TALK",
+    "after": "DRAW"
+  },
+  "colors": {
+    "before": "green",
+    "after": "red",
+    "thinking": "white"
+  },
   "timing": {
-    "first_fixation": 3
+    "first_fixation": 1,
+    "thinking": 1,
+    "resting": 2
   }
 }
