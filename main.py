@@ -17,7 +17,7 @@ with open(CONF_PATH, "r") as f:
 # Create new file for the run
 OUTPUT_FOLDER = "output"
 OUTPUT_FILE_NAME = "{}_{}_{}".format(CONF["participant"], CONF_NAME,
-    datetime.datetime.now())
+    datetime.datetime.now().strftime("%Y-%m-%d-%H-%M"))
 output_file_path = os.path.join(OUTPUT_FOLDER, OUTPUT_FILE_NAME)
 
 with open("{}_conf.json".format(output_file_path), "w+") as f:
