@@ -11,7 +11,7 @@ CONF_NAME = sys.argv[1] #select configuration file from terminal when running sc
 CONF_PATH = os.path.join("configurations", "{}.json".format(CONF_NAME))
 with open(CONF_PATH, "r") as f:
     CONF = json.load(f)
-
+CONF["participant"] = "001"
 
 
 # Create new file for the run
