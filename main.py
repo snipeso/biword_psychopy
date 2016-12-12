@@ -7,7 +7,8 @@ from dataset import Dataset
 from utils import append_data
 
 # Summon Configurations
-CONF_NAME = sys.argv[1] #select configuration file from terminal when running script.
+#CONF_NAME = sys.argv[1] #select configuration file from terminal when running script.
+CONF_NAME = "debug"
 CONF_PATH = os.path.join("configurations", "{}.json".format(CONF_NAME))
 with open(CONF_PATH, "r") as f:
     CONF = json.load(f)
