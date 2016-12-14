@@ -4,7 +4,7 @@ import os
 import datetime
 from psychopy import visual, core, event
 from dataset import Dataset
-from utils import append_data
+from utils import append_data, wait_trigger
 
 # Summon Configurations
 #CONF_NAME = sys.argv[1] #select configuration file from terminal when running script.
@@ -36,7 +36,7 @@ dataset = Dataset(CONF["dataset"]["name"], CONF["dataset"]["to_clean"])
 # Psychopy variables, based on configurations file
 window = visual.Window(size=CONF["screen"]["size"],
                        color=CONF["screen"]["color"],
-                       fullscr=True,
+                       fullscr=False, # TODO change to True
                        monitor=CONF["screen"]["monitor"],
                        units="norm")
 FIXATION = core.StaticPeriod()
@@ -56,11 +56,13 @@ fixation_cross.draw()
 window.flip()
 
 
-# Starts experiment with first input from scanner
-while CONF["keys"]["start"] not in event.waitKeys():
-    pass
+wait_trigger(1)
+# starts clock for timestamping events
 clock = core.Clock()
-core.wait(CONF["timing"]["first_fixation"])
+# waits for first n triggers with fixation, not counting the first
+wait_trigger(CONF["trigger_timing"]["first_fixation"]-1)
+
+
 
 # Main experiment loop
 d_sequence = 0
@@ -76,7 +78,8 @@ while not dataset.is_finished():
     word.draw()
     window.flip()
     d_time_start_planning = clock.getTime()
-    core.wait(CONF["timing"]["planning"])
+    wait_trigger(CONF["trigger_timing"]["planning"])
+
 
     # Thinking phase
     task_before.color = CONF["tasks"]["colors"]["before"]
@@ -86,29 +89,29 @@ while not dataset.is_finished():
     word.draw()
     window.flip()
     d_time_start_thinking = clock.getTime()
-    core.wait(CONF["timing"]["thinking"])
+    wait_trigger(CONF["trigger_timing"]["thinking"])
+
 
     # Resting period
-    FIXATION.start(CONF["timing"]["resting"])
     fixation_cross.draw()
     window.flip()
 
 
     # Waits for answer to proceed to next word
     direction = None
-    while not direction:
-        allKeys=event.waitKeys()
-        for thisKey in allKeys:
+    trigger_count = 0
+    while not direction or trigger_count < CONF["trigger_timing"]["resting"]:
+        for thisKey in event.waitKeys():
             if thisKey in CONF["keys"]["before"]:
                 direction = "before"
             elif thisKey in CONF["keys"]["after"]:
                 direction = "after"
             elif thisKey == "escape":
                 sys.exit(1)
+            elif thisKey == "5":
+                trigger_count += 1
     d_time_answer = clock.getTime()
 
-    # Waits for remaing time (if any) before presenting next stimulus
-    FIXATION.complete()
     window.flip()
 
     # Adds data to csv file

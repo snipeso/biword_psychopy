@@ -32,5 +32,11 @@
     "planning": 1,
     "thinking": 2,
     "resting": 3
+  },
+  "trigger_timing": {
+    "first_fixation": 5,
+    "planning": 5,
+    "thinking": 5,
+    "resting": 5
   }
 }
