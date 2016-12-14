@@ -123,7 +123,7 @@ while not dataset.is_finished():
     # splits dataset to start the next loop
     dataset.split_dataset(direction)
 
-word.setText("{}!".function(d_middle_word.upper()))
+word.setText("{}!".format(dataset.middle_word()))
 word.draw()
 window.flip()
 wait_trigger(2)
