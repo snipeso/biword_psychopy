@@ -5,14 +5,14 @@
     "to_clean": true
   },
   "timing": {
-    "first_fixation": 30,
+    "first_fixation": 25,
     "planning": 5,
     "thinking": 10,
-    "resting": 30
+    "resting": 15
   },
   "keys": {
     "before": ["1", "left", "minus"],
-    "after": ["2", "right", "plus"],
+    "after": ["2", "right", "plus", "equal"],
     "start": "5"
   },
   "screen": {
