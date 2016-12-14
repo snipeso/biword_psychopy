@@ -36,7 +36,7 @@ dataset = Dataset(CONF["dataset"]["name"], CONF["dataset"]["to_clean"])
 # Psychopy variables, based on configurations file
 window = visual.Window(size=CONF["screen"]["size"],
                        color=CONF["screen"]["color"],
-                       fullscr=False, # TODO change to True
+                       fullscr=True,
                        monitor=CONF["screen"]["monitor"],
                        units="norm")
 FIXATION = core.StaticPeriod()
