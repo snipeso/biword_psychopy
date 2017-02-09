@@ -51,7 +51,7 @@ task_after = visual.TextStim(window, text=CONF["tasks"]["instructions"]["after"]
 
 
 zmq_context = zmq.Context()
-socket = zmq_context.socket(zmq.REP)
+socket = zmq_context.socket(zmq.PULL)
 socket.bind("tcp://*:5555")
 
 
