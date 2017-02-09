@@ -56,7 +56,7 @@ while not dataset.is_finished():
     if CONF['input_method'] == 'manual':
         direction = inputs.wait_for_input_long()
     elif CONF['input_method'] == 'network_short':
-        direction = network_input.wait_for_input_short()
+        direction = inputs.wait_for_input_short()
     elif CONF['input_method'] == 'network_long':
         direction = inputs.wait_for_input_long()
 
