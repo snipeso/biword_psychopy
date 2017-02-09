@@ -31,7 +31,6 @@ class Dataset:
         self.dataset = list(set(self.dataset))
         self.dataset = sorted(self.dataset)
 
-
     def _middle_word_position(self):
         """
         Internally used to get the position of the middle word.
