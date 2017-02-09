@@ -2,6 +2,7 @@ import json
 import sys
 import os
 import datetime
+import zmq
 from psychopy import visual, core, event
 from dataset import Dataset
 from utils import append_data, wait_trigger
@@ -49,6 +50,9 @@ task_after = visual.TextStim(window, text=CONF["tasks"]["instructions"]["after"]
 
 
 
+zmq_context = zmq.Context()
+socket = zmq_context.socket(zmq.REP)
+socket.bind("tcp://*:5555")
 
 
 # Presents simple fixation
@@ -100,16 +104,22 @@ while not dataset.is_finished():
     # Waits for answer to proceed to next word
     direction = None
     trigger_count = 0
-    while not direction or trigger_count < CONF["trigger_timing"]["resting"]:
-        for thisKey in event.waitKeys():
-            if thisKey in CONF["keys"]["before"]:
-                direction = "before"
-            elif thisKey in CONF["keys"]["after"]:
-                direction = "after"
-            elif thisKey == "escape":
-                sys.exit(1)
-            elif thisKey == "5":
-                trigger_count += 1
+
+    if CONF["input_method"] == "network":
+        classifier_datapoint = float(socket.recv())
+        direction = "before" if classifier_datapoint < 0 else "after"
+
+    else if CONF["input_method"] == "manual":
+        while not direction or trigger_count < CONF["trigger_timing"]["resting"]:
+            for thisKey in event.waitKeys():
+                if thisKey in CONF["keys"]["before"]:
+                    direction = "before"
+                elif thisKey in CONF["keys"]["after"]:
+                    direction = "after"
+                elif thisKey == "escape":
+                    sys.exit(1)
+                elif thisKey == "5":
+                    trigger_count += 1
     d_time_answer = clock.getTime()
 
     window.flip()

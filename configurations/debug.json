@@ -1,5 +1,6 @@
 {
   "participant": "John-Doe",
+  "input_method": "manual",
   "dataset": {
     "name": "american-english",
     "to_clean": true
