@@ -7,7 +7,7 @@ class Screen:
             size=CONF["screen"]["size"],
             color=CONF["screen"]["color"],
             monitor=CONF["screen"]["monitor"],
-            fullscr=True, units="norm")
+            fullscr=False, units="norm")
 
         # Setup fixation cross
         self.fixation_cross = visual.TextStim(self.window, text="+")

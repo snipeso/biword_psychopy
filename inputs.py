@@ -14,7 +14,7 @@ class Input:
     def _get_classifier_input(self, block=False):
         "Helper method, can be blocking or nonblocking"
         try:
-            datapoint = self.socket.recv(flags=zmq.NOBLOCK if block else None)
+            datapoint = self.socket.recv(flags=zmq.NOBLOCK if not block else False)
             return "before" if float(datapoint) < 0 else "after"
         except zmq.Again:
             return None
@@ -27,9 +27,7 @@ class Input:
         direction = None
         trigger_count = 0
 
-        condition = direction and trigger_count > self.CONF["trigger_timing"]["resting"]
-
-        while not condition:
+        while not direction or trigger_count < self.CONF["trigger_timing"]["resting"]:
             # Checks keyboard input
             for thisKey in event.getKeys():
                 if thisKey in self.CONF["keys"]["before"]:

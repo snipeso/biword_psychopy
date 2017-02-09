@@ -1,9 +1,11 @@
 import datetime
 import json
 import collections
+import os
+import csv
 
 class Logger:
-    def __init__(self, OUTPUT_FOLDER='output', CONF_NAME, CONF):
+    def __init__(self, OUTPUT_FOLDER, CONF_NAME, CONF):
         "Initialize Logger"
 
         if not os.path.exists(OUTPUT_FOLDER):

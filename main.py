@@ -1,5 +1,6 @@
 import json
 import os
+from psychopy import core
 from dataset import Dataset
 from presentation import Screen
 from inputs import Input
