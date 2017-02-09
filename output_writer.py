@@ -6,6 +6,9 @@ class Logger:
     def __init__(self, OUTPUT_FOLDER='output', CONF_NAME, CONF):
         "Initialize Logger"
 
+        if not os.path.exists(OUTPUT_FOLDER):
+            os.makedirs(OUTPUT_FOLDER)
+
         # Determines name for output fole
         OUTPUT_FILE_NAME = "{}_{}_{}".format(
             CONF["participant"],
