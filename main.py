@@ -59,6 +59,9 @@ while not dataset.is_finished():
         direction = inputs.wait_for_input_short()
     elif CONF['input_method'] == 'network_long':
         direction = inputs.wait_for_input_long()
+    elif CONF['input_method'] == 'auto':
+        direction = inputs.wait_for_input_auto(dataset.middle_word())
+
 
     logger.data['time_answer'] = clock.getTime()
     logger.data['direction'] = direction

@@ -4,6 +4,7 @@ import zmq
 from psychopy import event
 
 
+
 class Input:
     def __init__(self, CONF):
         self.CONF = CONF
@@ -46,6 +47,11 @@ class Input:
             # waits 1/10 of a sec and checks again
             time.sleep(0.1)
         return direction
+
+    def wait_for_input_auto(self, middle_word):
+        self.wait_triggers(self.CONF["trigger_timing"]["resting"])
+        return "before" if self.CONF["target_word"] < middle_word else "after"
+
 
     def wait_triggers(self, trigger_count):
         "Waits a predefined number of triggers"
