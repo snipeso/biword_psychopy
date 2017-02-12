@@ -5,7 +5,7 @@
     "name": "american-english",
     "to_clean": true
   },
-  "timing": {
+  "trigger_timing": {
     "first_fixation": 25,
     "planning": 5,
     "thinking": 10,
