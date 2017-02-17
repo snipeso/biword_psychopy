@@ -57,4 +57,6 @@ class Input:
         "Waits a predefined number of triggers"
         trigger_timing = []
         while len(trigger_timing) < trigger_count:
-            trigger_timing += event.waitKeys(keyList=["5"])
+            trigger_timing += event.waitKeys(keyList=["5", "escape"])
+            if "escape" in trigger_timing:
+                sys.exit(1)
