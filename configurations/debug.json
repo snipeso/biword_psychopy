@@ -33,6 +33,7 @@
     "first_fixation": 2,
     "planning": 2,
     "thinking": 2,
-    "resting": 2
+    "resting": 2,
+    "last_fixation": 5
   }
 }
