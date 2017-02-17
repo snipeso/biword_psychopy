@@ -15,8 +15,8 @@ class Input:
     def _get_classifier_input(self, block=False):
         "Helper method, can be blocking or nonblocking"
         try:
-            datapoint = self.socket.recv(flags=zmq.NOBLOCK if not block else False)
-            return "before" if float(datapoint) < 0 else "after"
+            prediction = self.socket.recv(flags=zmq.NOBLOCK if not block else False)
+            return CONF["classifier_directions"][prediction]
         except zmq.Again:
             return None
 

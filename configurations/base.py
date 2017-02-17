@@ -10,6 +10,10 @@ CONF = {
         "after": ["2", "right", "plus"],
         "start": "5",
     },
+    "classifier_directions":{
+        "1": "before",
+        "2": "after",
+    },
     "screen": {
         "size": [800, 600],
         "color": "black",
