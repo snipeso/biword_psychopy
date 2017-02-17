@@ -7,15 +7,7 @@ from inputs import Input
 from output_writer import Logger
 
 # Summon Configurations
-CONF_NAME = "debug"
-CONF_PATH = os.path.join("configurations", "{}.json".format(CONF_NAME))
-with open(CONF_PATH, "r") as f:
-    CONF = json.load(f)
-CONF["participant"] = "001"
-
-for interval in CONF["trigger_timing"]:
-    CONF["trigger_timing"][interval] =\
-        CONF["trigger_timing"][interval] * CONF["triggers_per_second"]
+from configurations.final import CONF
 
 # Initialize screen, logger and inputs
 screen = Screen(CONF)
