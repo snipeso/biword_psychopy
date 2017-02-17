@@ -1,9 +1,9 @@
 from debug import CONF # Can be: debug, fast, slow
 
 CONF.update({
-  "participant": "001",
-  "input_method": "manual", # Can be: auto, manual, network_long, network_short
-  #"target_word": "respectfulness", # To be used for method is "auto"
+  "participant": "0023",
+  "input_method": "auto", # Can be: auto, manual, network_long, network_short
+  "target_word": "respectfulness", # To be used for method "auto"
 })
 
 for interval in CONF["trigger_timing"]:
