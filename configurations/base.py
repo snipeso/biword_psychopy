@@ -1,4 +1,4 @@
-CONFIG = {
+CONF = {
     "dataset": {
         "name": "american-english",
         "to_clean": True,

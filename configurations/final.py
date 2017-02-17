@@ -1,8 +1,9 @@
-from whichever import CONFIG
+from fast import CONF #
 
-CONFIG.update({
-  "input_method": "manual",  # OPTIONS:
-  "participant": "John Watson",
+CONF.update({
+  "participant": "001",
+  "input_method": "manual",  # Can be: auto, manual, network_long, network_short
+  # "target_word": "respectfulness", # To be used for method is "auto"
 })
 
 for interval in CONF["trigger_timing"]:
