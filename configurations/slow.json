@@ -9,7 +9,8 @@
     "first_fixation": 25,
     "planning": 5,
     "thinking": 10,
-    "resting": 15
+    "resting": 15,
+    "last_fixation": 5
   },
   "keys": {
     "before": ["1", "left", "minus"],
