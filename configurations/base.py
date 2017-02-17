@@ -1,4 +1,5 @@
 CONF = {
+    "name": "base",
     "dataset": {
         "name": "american-english",
         "to_clean": True,

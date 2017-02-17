@@ -11,7 +11,7 @@ from configurations.final import CONF
 
 # Initialize screen, logger and inputs
 screen = Screen(CONF)
-logger = Logger(OUTPUT_FOLDER='output', CONF_NAME=CONF_NAME, CONF=CONF)
+logger = Logger(OUTPUT_FOLDER='output', CONF=CONF)
 inputs = Input(CONF)
 
 # Summon dataset with optional cleaning

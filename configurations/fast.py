@@ -1,6 +1,7 @@
 from base import CONF
 
 CONF.update({
+    "name": "fast",
     "trigger_timing": {
         "first_fixation": 20,
         "planning": 5,
