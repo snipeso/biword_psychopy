@@ -72,5 +72,10 @@ while not dataset.is_finished():
     # splits dataset to start the next loop
     dataset.split_dataset(direction)
 
+#shows final word for as long as the planning period
 screen.show_victory("{}!".format(dataset.middle_word()))
-inputs.wait_triggers(2)
+inputs.wait_triggers(CONF["trigger_timing"]["planning"]) 
+
+# Presents simple fixation until the end
+screen.show_fixation_cross()
+inputs.wait_triggers(CONF["trigger_timing"]["last_fixation"])
