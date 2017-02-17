@@ -5,12 +5,13 @@
     "name": "american-english",
     "to_clean": true
   },
+  "triggers_per_second": 3,
   "trigger_timing": {
-    "first_fixation": 25,
+    "first_fixation": 20,
     "planning": 5,
     "thinking": 10,
-    "resting": 15,
-    "last_fixation": 5
+    "resting": 20,
+    "last_fixation": 20
   },
   "keys": {
     "before": ["1", "left", "minus"],

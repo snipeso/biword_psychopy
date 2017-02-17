@@ -1,15 +1,21 @@
 {
-  "participant": "John-Doe",
+  "participant": "1",
   "input_method": "auto",
   "target_word": "respectfulness",
   "dataset": {
     "name": "american-english",
     "to_clean": true
   },
-  "triggers_per_second": 3,
+  "trigger_timing": {
+    "first_fixation": 20,
+    "planning": 5,
+    "thinking": 10,
+    "resting": 5,
+    "last_fixation": 20
+  },
   "keys": {
     "before": ["1", "left", "minus"],
-    "after": ["2", "right", "plus"],
+    "after": ["2", "right", "plus", "equal"],
     "start": "5"
   },
   "screen": {
@@ -29,12 +35,5 @@
     },
     "distance": 0.58,
     "height": 0.07
-  },
-  "trigger_timing": {
-    "first_fixation": 1,
-    "planning": 1,
-    "thinking": 1,
-    "resting": 2,
-    "last_fixation": 1
   }
 }

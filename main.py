@@ -13,6 +13,10 @@ with open(CONF_PATH, "r") as f:
     CONF = json.load(f)
 CONF["participant"] = "001"
 
+for interval in CONF["trigger_timing"]:
+    CONF["trigger_timing"][interval] =\
+        CONF["trigger_timing"][interval] * CONF["triggers_per_second"]
+
 # Initialize screen, logger and inputs
 screen = Screen(CONF)
 logger = Logger(OUTPUT_FOLDER='output', CONF_NAME=CONF_NAME, CONF=CONF)
@@ -74,7 +78,7 @@ while not dataset.is_finished():
 
 #shows final word for as long as the planning period
 screen.show_victory("{}!".format(dataset.middle_word()))
-inputs.wait_triggers(CONF["trigger_timing"]["planning"]) 
+inputs.wait_triggers(CONF["trigger_timing"]["planning"])
 
 # Presents simple fixation until the end
 screen.show_fixation_cross()

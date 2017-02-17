@@ -1,17 +1,18 @@
 {
   "participant": "1",
   "input_method": "auto",
-  "target_word": "respectfullness",
+  "target_word": "respectfulness",
   "dataset": {
     "name": "american-english",
     "to_clean": true
   },
+  "triggers_per_second": 3,
   "trigger_timing": {
-    "first_fixation": 5,
+    "first_fixation": 20,
     "planning": 5,
-    "thinking": 5,
-    "resting": 5,
-    "last_fixation": 5
+    "thinking": 10,
+    "resting": 20,
+    "last_fixation": 20
   },
   "keys": {
     "before": ["1", "left", "minus"],
