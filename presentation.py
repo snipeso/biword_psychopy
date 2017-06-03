@@ -24,6 +24,12 @@ class Screen:
             pos=[CONF["tasks"]["distance"], 0],
             height=CONF["tasks"]["height"])
 
+        #setup alphabet
+        self.alphabet = visual.TextStim(self.window,
+            text=(" "*CONF["alphabet"]["spacing"]).join(CONF["alphabet"]["letters"]),
+            pos=[0, CONF["alphabet"]["distance"]],
+            height=CONF["alphabet"]["height"])
+
     def show_fixation_cross(self):
         self.fixation_cross.draw()
         self.window.flip()
@@ -35,6 +41,7 @@ class Screen:
         self.task_after.draw()
         self.word.setText(word.upper())
         self.word.draw()
+        self.alphabet.draw()
         self.window.flip()
 
     def show_thinking(self):
@@ -43,6 +50,7 @@ class Screen:
         self.task_after.color = self.CONF["tasks"]["colors"]["after"]
         self.task_after.draw()
         self.word.draw()
+        self.alphabet.draw()
         self.window.flip()
 
     def show_victory(self, word):

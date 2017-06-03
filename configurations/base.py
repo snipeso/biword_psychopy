@@ -1,3 +1,5 @@
+import string
+
 CONF = {
     "name": "base",
     "dataset": {
@@ -32,4 +34,12 @@ CONF = {
     "distance": 0.58,
     "height": 0.07,
     },
+    "alphabet": {
+        "letters" : string.ascii_uppercase,
+        "spacing": 1,
+        "color": "white",
+        "distance": 0.9,
+        "height": 0.04,
+        "length": 0.8, #percent of screen size
+    }
 }
