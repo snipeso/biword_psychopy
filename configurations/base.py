@@ -36,10 +36,8 @@ CONF = {
     },
     "alphabet": {
         "letters" : string.ascii_uppercase,
-        "spacing": 1,
-        "color": "white",
-        "distance": 0.9,
-        "height": 0.04,
-        "length": 0.8, #percent of screen size
+        "length": 0.53, #percent of screen size
+        "y_position": 0.8,
+        "height": 0.07,
     }
 }
