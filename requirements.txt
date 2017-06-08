@@ -1,3 +1,20 @@
 PsychoPy==1.84.2
 pyzmq==16.0.2
 watchdog==0.8.3
+requests
+numpy
+scipy
+matplotlib
+pandas
+pyglet
+pillow
+openpyxl
+configobj
+#for iohub
+pyyaml
+gevent
+msgpack-python
+psutil
+tables
+python-bidi
+cffi

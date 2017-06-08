@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 from psychopy import core
 from dataset import Dataset
@@ -6,23 +7,34 @@ from presentation import Screen
 from inputs import Input
 from output_writer import Logger
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s-%(levelname)s-%(message)s',
+)
+
+
 # Summon Configurations
 from configurations.final import CONF
+logging.info('Configuration loaded')
 
 # Initialize screen, logger and inputs
 screen = Screen(CONF)
 logger = Logger(OUTPUT_FOLDER='output', CONF=CONF)
 inputs = Input(CONF)
+logging.info('Initialization completed')
 
 # Summon dataset with optional cleaning
 dataset = Dataset(CONF["dataset"]["name"], CONF["dataset"]["to_clean"])
+logging.info('Dataset loaded')
 
 # Presents simple fixation
 screen.show_fixation_cross()
+logging.info('Waiting for first trigger')
 inputs.wait_triggers(1)
 
 # starts clock for timestamping events
 clock = core.Clock()
+logging.info('Starting experiment clock')
 
 # waits for first n triggers with fixation, not counting the first
 inputs.wait_triggers(CONF["trigger_timing"]["first_fixation"]-1)
@@ -34,6 +46,8 @@ sequence_number = 0
 while not dataset.is_finished():
     # Planning phase
     sequence_number += 1
+    logging.info('Starting iteration #%s', sequence_number)
+    logging.info('Starting planning phase')
     logger.data['sequence'] = sequence_number
     screen.show_planning(dataset.middle_word())
     logger.data['word'] = dataset.middle_word()
@@ -41,11 +55,13 @@ while not dataset.is_finished():
     inputs.wait_triggers(CONF["trigger_timing"]["planning"])
 
     # Thinking phase
+    logging.info('Starting thinking phase')
     screen.show_thinking()
     logger.data['time_start_thinking'] = clock.getTime()
     inputs.wait_triggers(CONF["trigger_timing"]["thinking"])
 
     # Resting period
+    logging.info('Starting resting period')
     screen.show_fixation_cross()
 
     # Waits for answer to proceed to next word
@@ -58,6 +74,8 @@ while not dataset.is_finished():
     elif CONF['input_method'] == 'auto':
         direction = inputs.wait_for_input_auto(dataset.middle_word())
 
+    logging.info('A direction was obtained via %s : %s', CONF['input_method'], direction)
+
 
     logger.data['time_answer'] = clock.getTime()
     logger.data['direction'] = direction
@@ -68,10 +86,15 @@ while not dataset.is_finished():
     # splits dataset to start the next loop
     dataset.split_dataset(direction)
 
+logging.info('Dictionary had len==1, iterations are ended')
+logging.info('Showing the final word: %s', dataset.middle_word())
 #shows final word for as long as the planning period
 screen.show_victory("{}!".format(dataset.middle_word()))
 inputs.wait_triggers(CONF["trigger_timing"]["planning"])
 
 # Presents simple fixation until the end
+logging.info('Showing fixation cross')
 screen.show_fixation_cross()
 inputs.wait_triggers(CONF["trigger_timing"]["last_fixation"])
+
+logging.info('Quitting')
