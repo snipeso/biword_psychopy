@@ -3,9 +3,27 @@ import time
 import zmq
 from psychopy import event
 
-
-
 class Input:
+    def wait_triggers(self, trigger_count):
+        "Waits a predefined number of triggers"
+        trigger_timing = []
+        while len(trigger_timing) < trigger_count:
+            trigger_timing += event.waitKeys(keyList=["5", "escape"])
+            if "escape" in trigger_timing:
+                sys.exit(1)
+
+
+class InputAuto(Input):
+    def __init__(self, CONF, dataset):
+        self.CONF = CONF
+        self.dataset = dataset
+    def wait_for_input(self):
+        middle_word = self.dataset.middle_word()
+        self.wait_triggers(self.CONF["trigger_timing"]["resting"])
+        return "before" if self.CONF["target_word"] < middle_word else "after"
+
+
+class InputNetwork(Input):
     def __init__(self, CONF):
         self.CONF = CONF
         zmq_context = zmq.Context()
@@ -13,18 +31,15 @@ class Input:
         self.socket.bind("tcp://*:5555")
 
     def _get_classifier_input(self, block=False):
-        "Helper method, can be blocking or nonblocking"
+        "Checks for prediction from the classifier, can be blocking or nonblocking"
         try:
             prediction = self.socket.recv(flags=zmq.NOBLOCK if not block else False)
-            return CONF["classifier_directions"][prediction]
+            return self.CONF["classifier_directions"][prediction]
         except zmq.Again:
             return None
 
-    def wait_for_input_short(self):
-        "Blocks on classifier input"
-        return self._get_classifier_input(block=True)
 
-    def wait_for_input_long(self):
+    def wait_for_input(self):
         direction = None
         trigger_count = 0
 
@@ -48,15 +63,7 @@ class Input:
             time.sleep(0.1)
         return direction
 
-    def wait_for_input_auto(self, middle_word):
-        self.wait_triggers(self.CONF["trigger_timing"]["resting"])
-        return "before" if self.CONF["target_word"] < middle_word else "after"
 
-
-    def wait_triggers(self, trigger_count):
-        "Waits a predefined number of triggers"
-        trigger_timing = []
-        while len(trigger_timing) < trigger_count:
-            trigger_timing += event.waitKeys(keyList=["5", "escape"])
-            if "escape" in trigger_timing:
-                sys.exit(1)
+    # def wait_for_input_short(self):
+    #     "Blocks on classifier input"
+    #     return self._get_classifier_input(block=True)

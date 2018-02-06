@@ -4,7 +4,7 @@ import os
 from psychopy import core
 from dataset import Dataset
 from presentation import Screen
-from inputs import Input
+import inputs as input_modules
 from output_writer import Logger
 
 logging.basicConfig(
@@ -17,15 +17,22 @@ logging.basicConfig(
 from configurations.final import CONF
 logging.info('Configuration loaded')
 
-# Initialize screen, logger and inputs
-screen = Screen(CONF)
-logger = Logger(OUTPUT_FOLDER='output', CONF=CONF)
-inputs = Input(CONF)
-logging.info('Initialization completed')
-
 # Summon dataset with optional cleaning
 dataset = Dataset(CONF["dataset"]["name"], CONF["dataset"]["to_clean"])
 logging.info('Dataset loaded')
+
+# Initialize screen, logger and inputs
+screen = Screen(CONF)
+logger = Logger(OUTPUT_FOLDER='output', CONF=CONF)
+if CONF['input_method'] in ['manual', 'network_long']:
+    inputs = input_modules.InputNetwork(CONF)
+# elif CONF['input_method'] == 'network_short':
+    # inputs = input_modules.InputNetwork()
+elif CONF['input_method'] == 'auto':
+    inputs = input_modules.InputAuto(CONF, dataset)
+
+logging.info('Initialization completed')
+
 
 # Presents simple fixation
 screen.show_fixation_cross()
@@ -38,7 +45,6 @@ logging.info('Starting experiment clock')
 
 # waits for first n triggers with fixation, not counting the first
 inputs.wait_triggers(CONF["trigger_timing"]["first_fixation"]-1)
-
 
 
 # Main experiment loop
@@ -65,15 +71,7 @@ while not dataset.is_finished():
     screen.show_fixation_cross()
 
     # Waits for answer to proceed to next word
-    if CONF['input_method'] == 'manual':
-        direction = inputs.wait_for_input_long()
-    elif CONF['input_method'] == 'network_short':
-        direction = inputs.wait_for_input_short()
-    elif CONF['input_method'] == 'network_long':
-        direction = inputs.wait_for_input_long()
-    elif CONF['input_method'] == 'auto':
-        direction = inputs.wait_for_input_auto(dataset.middle_word())
-
+    direction = inputs.wait_for_input()
     logging.info('A direction was obtained via %s : %s', CONF['input_method'], direction)
 
 

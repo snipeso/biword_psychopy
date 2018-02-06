@@ -1,7 +1,5 @@
 class Dataset:
-    """
-    This class handles all of the datset manipulation.
-    """
+    "This class handles all of the datset manipulation."
     def __init__(self, dataset_name, to_clean=True):
         """
         When you create an instance of Dataset, this automatically loads the
@@ -32,29 +30,20 @@ class Dataset:
         self.dataset = sorted(self.dataset)
 
     def _middle_word_position(self):
-        """
-        Internally used to get the position of the middle word.
-        """
+        "Internally used to get the position of the middle word."
         return int(len(self.dataset)/2)
 
     def middle_word(self):
-        """
-        Internally used to get the middle word of the dataset.
-        """
+        "Internally used to get the middle word of the dataset."
         return self.dataset[self._middle_word_position()]
 
     def split_dataset(self, direction):
-        """
-        Splits the dataset based on answer key.
-        """
+        "Splits the dataset based on answer key."
         if direction == "before":
             self.dataset = self.dataset[:self._middle_word_position()]
         else:
             self.dataset = self.dataset[self._middle_word_position():]
 
     def is_finished(self):
-        """
-        Announced the end of the process, when there is only 1 word left in the
-        dataset.
-        """
+        "Checks for the end of the process, when there is only 1 word left."
         return len(self.dataset) == 1
