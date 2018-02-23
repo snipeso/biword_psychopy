@@ -26,8 +26,6 @@ screen = Screen(CONF)
 logger = Logger(OUTPUT_FOLDER='output', CONF=CONF)
 if CONF['input_method'] in ['manual', 'network_long']:
     inputs = input_modules.InputNetwork(CONF)
-# elif CONF['input_method'] == 'network_short':
-    # inputs = input_modules.InputNetwork()
 elif CONF['input_method'] == 'auto':
     inputs = input_modules.InputAuto(CONF, dataset)
 

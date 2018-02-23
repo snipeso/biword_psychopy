@@ -1,6 +1,7 @@
 import sys
 import time
 import zmq
+import re
 from psychopy import event
 
 class Input:
@@ -33,8 +34,8 @@ class InputNetwork(Input):
     def _get_classifier_input(self, block=False):
         "Checks for prediction from the classifier, can be blocking or nonblocking"
         try:
-            prediction = self.socket.recv(flags=zmq.NOBLOCK if not block else False)
-            return self.CONF["classifier_directions"][prediction]
+            return self.socket.recv(flags=zmq.NOBLOCK if not block else False)
+            # return self.CONF["classifier_directions"][prediction]
         except zmq.Again:
             return None
 
@@ -57,10 +58,16 @@ class InputNetwork(Input):
 
             # If no keyboard input, checks network input
             if not direction:
-                direction = self._get_classifier_input(block=False)
+                prediction = self._get_classifier_input(block=False)
+                if prediction:
+                    prediction = float(prediction)
+                    if abs(prediction) <= self.CONF['classifier']['acceptance_treshold']:
+                        return 'prediction_below_treshold'
+                    return 'before' if prediction < 0 else 'after'
 
-            # waits 1/10 of a sec and checks again
-            time.sleep(0.1)
+
+            # waits 1/100 of a sec and checks again
+            time.sleep(0.01)
         return direction
 
 

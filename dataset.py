@@ -41,7 +41,7 @@ class Dataset:
         "Splits the dataset based on answer key."
         if direction == "before":
             self.dataset = self.dataset[:self._middle_word_position()]
-        else:
+        elif direction == "after":
             self.dataset = self.dataset[self._middle_word_position():]
 
     def is_finished(self):

@@ -12,10 +12,6 @@ CONF = {
         "after": ["2", "right", "plus"],
         "start": "5",
     },
-    "classifier_directions":{
-        "1": "before",
-        "2": "after",
-    },
     "screen": {
         "size": [800, 600],
         "color": "black",
@@ -39,5 +35,12 @@ CONF = {
         "length": 0.53, #percent of screen size
         "y_position": 0.8,
         "height": 0.07,
+    },
+    "classifier": {
+        "acceptance_treshold": 0.2,
+        "directions":{
+            -1: "before",
+             1: "after",
+        },
     }
 }
